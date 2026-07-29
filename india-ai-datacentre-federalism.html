@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Suman Sunder Dey">
+<title>The Uneven Race — AI, Data Centres & the Economics of State Competition in India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C1B19;
+    --navy:#14213D;
+    --paper:#F6F4EE;
+    --paper-2:#EFEBE0;
+    --rule:#D9D3C4;
+    --teal:#3A6B67;
+    --amber:#C88A2E;
+    --rust:#A13D2C;
+    --slate:#6B7280;
+    --sage:#6B8F71;
+    --neutral:#D8D2C4;
+    --maha:#14213D;
+    --tn:#3A6B67;
+    --tel:#C88A2E;
+    --up:#A13D2C;
+    --kar:#6B7280;
+    --guj:#6B8F71;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16.5px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .col{
+    max-width:700px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .wide{
+    max-width:980px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  h1,h2,h3{
+    font-family:'Lora', serif;
+    color:var(--navy);
+    margin:0 0 0.4em 0;
+    letter-spacing:-0.01em;
+  }
+  a{color:var(--navy);}
+  p{margin:0 0 1.15em 0;}
+
+  /* ===== MASTHEAD ===== */
+  .masthead{
+    border-bottom:2px solid var(--navy);
+    padding:38px 0 26px 0;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--rust);
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    display:inline-block;
+    width:22px;
+    height:2px;
+    background:var(--rust);
+  }
+  h1.title{
+    font-size:2.55rem;
+    line-height:1.1;
+    font-weight:700;
+    max-width:11.5em;
+  }
+  .dek{
+    font-size:1.18rem;
+    color:#3d3a35;
+    font-family:'Lora', serif;
+    font-style:italic;
+    font-weight:500;
+    max-width:34em;
+    margin-top:14px;
+  }
+  .byline-row{
+    margin-top:26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--slate);
+    letter-spacing:0.01em;
+  }
+  .byline-row b{color:var(--ink);}
+
+  /* ===== EXEC SUMMARY ===== */
+  .summary{
+    background:var(--navy);
+    color:var(--paper);
+    padding:30px 32px;
+    margin:36px 0 0 0;
+  }
+  .summary h3{
+    color:var(--paper);
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-family:'IBM Plex Mono', monospace;
+    margin-bottom:16px;
+    opacity:0.75;
+    font-weight:600;
+  }
+  .summary ul{margin:0;padding-left:20px;}
+  .summary li{margin-bottom:10px;font-size:0.97rem;}
+  .summary li:last-child{margin-bottom:0;}
+  .summary li::marker{color:var(--amber);}
+
+  /* ===== SECTIONS ===== */
+  section{padding:52px 0;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--rust);
+    font-size:0.85rem;
+    font-weight:600;
+  }
+  h2{font-size:1.68rem;}
+  .section-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    margin-bottom:6px;
+  }
+  hr.rule{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:0;
+  }
+
+  /* ===== BREAKOUT / CHART PANELS ===== */
+  .panel{
+    background:var(--paper-2);
+    border:1px solid var(--rule);
+    padding:30px 34px;
+    margin:30px 0;
+  }
+  .panel-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--navy);
+    font-weight:600;
+    margin-bottom:2px;
+  }
+  .panel-sub{
+    font-size:13px;
+    color:var(--slate);
+    margin-bottom:22px;
+  }
+  .source-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--slate);
+    margin-top:16px;
+    letter-spacing:0.02em;
+  }
+
+  /* ===== RIBBON (hero + timeline share bars) ===== */
+  .ribbon{
+    display:flex;
+    width:100%;
+    height:54px;
+    border-radius:3px;
+    overflow:hidden;
+    box-shadow:0 1px 0 rgba(0,0,0,0.05);
+  }
+  .ribbon-seg{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    position:relative;
+    min-width:2px;
+  }
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px 22px;
+    margin-top:16px;
+    font-size:12.5px;
+  }
+  .legend-item{display:flex;align-items:center;gap:7px;color:var(--ink);}
+  .swatch{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+
+  /* ===== HORIZONTAL BAR CHART ROWS ===== */
+  .bar-row{
+    display:grid;
+    grid-template-columns:150px 1fr 64px;
+    align-items:center;
+    gap:14px;
+    margin-bottom:13px;
+  }
+  .bar-row:last-child{margin-bottom:0;}
+  .bar-label{
+    font-size:13px;
+    font-weight:500;
+    text-align:right;
+  }
+  .bar-track{
+    background:#e4dfd1;
+    border-radius:2px;
+    height:18px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    border-radius:2px 0 0 2px;
+  }
+  .bar-val{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+  }
+  .bar-note{
+    grid-column:2/3;
+    font-size:11.5px;
+    color:var(--slate);
+    margin-top:-6px;
+    margin-bottom:4px;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline{
+    position:relative;
+    height:110px;
+    margin:10px 0 6px 0;
+  }
+  .timeline-track{
+    position:absolute;
+    top:52px;
+    left:0;
+    right:0;
+    height:3px;
+    background:var(--rule);
+  }
+  .timeline-yr{
+    position:absolute;
+    top:60px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    color:var(--slate);
+    transform:translateX(-50%);
+  }
+  .tl-marker{
+    position:absolute;
+    top:44px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    border:3px solid var(--paper-2);
+    transform:translateX(-50%);
+  }
+  .tl-label{
+    position:absolute;
+    top:-6px;
+    font-size:11.5px;
+    font-weight:600;
+    white-space:nowrap;
+    transform:translateX(-50%);
+  }
+  .tl-label span{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:500;
+    font-size:10px;
+    color:var(--slate);
+  }
+
+  /* ===== STAT CARDS ===== */
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin:30px 0;
+  }
+  .stat-card{
+    background:var(--paper);
+    padding:26px 26px;
+  }
+  .stat-num{
+    font-family:'Lora', serif;
+    font-weight:700;
+    font-size:2.1rem;
+    color:var(--rust);
+    line-height:1;
+  }
+  .stat-label{
+    font-size:12.5px;
+    color:var(--ink);
+    margin-top:8px;
+    line-height:1.4;
+  }
+
+  /* ===== PULL QUOTE ===== */
+  blockquote{
+    margin:34px 0;
+    padding:4px 0 4px 26px;
+    border-left:3px solid var(--amber);
+    font-family:'Lora', serif;
+    font-style:italic;
+    font-size:1.28rem;
+    line-height:1.5;
+    color:var(--navy);
+  }
+  blockquote cite{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-style:normal;
+    font-size:11.5px;
+    color:var(--slate);
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+
+  /* ===== TABLES ===== */
+  .tbl-wrap{overflow-x:auto;margin:30px 0;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.3px;
+  }
+  thead th{
+    text-align:left;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--paper);
+    background:var(--navy);
+    padding:11px 14px;
+    font-weight:600;
+  }
+  tbody td{
+    padding:12px 14px;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+  }
+  tbody tr:nth-child(even){background:rgba(20,33,61,0.03);}
+  td.state-cell{font-weight:700;color:var(--navy);white-space:nowrap;}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;}
+
+  /* ===== RECOMMENDATIONS ===== */
+  .rec{
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:18px;
+    margin-bottom:26px;
+    align-items:start;
+  }
+  .rec-num{
+    font-family:'Lora', serif;
+    font-weight:700;
+    font-size:1.9rem;
+    color:var(--rule);
+    line-height:1;
+  }
+  .rec h4{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    color:var(--navy);
+    margin:0 0 6px 0;
+  }
+  .rec p{margin-bottom:0;font-size:0.96rem;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    border-top:2px solid var(--navy);
+    padding:32px 0 60px 0;
+    font-size:12px;
+    color:var(--slate);
+    font-family:'IBM Plex Mono', monospace;
+    line-height:1.8;
+  }
+  footer h5{
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink);
+    font-size:11px;
+    margin:0 0 10px 0;
+  }
+
+  @media (max-width:640px){
+    h1.title{font-size:1.9rem;}
+    .stat-grid{grid-template-columns:1fr;}
+    .bar-row{grid-template-columns:96px 1fr 50px;gap:8px;}
+    .bar-label{font-size:11.5px;}
+    .wide,.col{padding:0 18px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="col">
+  <div class="masthead">
+    <div class="eyebrow">India House Research · AI &amp; Digital Infrastructure Series</div>
+    <h1 class="title">The Uneven Race</h1>
+    <div class="dek">How six Indian states are bidding for the AI data-centre boom — and why the same policy toolkit is producing wildly different winners.</div>
+    <div class="byline-row">
+      <span><b>Author:</b> Suman Sunder Dey</span>
+      <span><b>Prepared as:</b> Research Associate assignment</span>
+      <span><b>Coverage:</b> Maharashtra · Tamil Nadu · Telangana · Uttar Pradesh · Karnataka · Gujarat</span>
+      <span><b>2026</b></span>
+    </div>
+  </div>
+
+  <div class="summary">
+    <h3>Executive summary</h3>
+    <ul>
+      <li>Maharashtra still holds roughly half of India's live data-centre capacity. The states now catching up aren't matching that lead with bigger subsidies alone — they're winning with <i>timing</i> and a handful of genuinely differentiated bets.</li>
+      <li>The states leading 2026 capital inflows are already India's richer states. The boom is riding on top of — and reinforcing — a regional income gap NITI Aayog itself has called worrying.</li>
+      <li>The jobs case is thin: roughly 100,000 data-centre jobs are projected nationally by 2030 against $126–180 billion in committed capital — over a million dollars of capital per eventual job.</li>
+      <li>Coastal access (cable landing stations) is necessary but far from sufficient — Kochi has it and no data-centre boom; Odisha has neither and is moving faster than most states that do.</li>
+      <li>India already designed a fix for the distributional problem in 2022 — a TRAI proposal for centre-funded incentive equalisation — and never switched it on.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="wide">
+  <div class="panel" style="margin-top:36px;">
+    <div class="panel-title">Where the boom has actually landed</div>
+    <div class="panel-sub">Share of India's live data-centre capacity, by hub city, 2025–26</div>
+    <div class="ribbon">
+      <div class="ribbon-seg" style="width:53%;background:var(--maha);">Mumbai · 53%</div>
+      <div class="ribbon-seg" style="width:20%;background:var(--tn);">Chennai · 20%</div>
+      <div class="ribbon-seg" style="width:10%;background:var(--up);">Delhi-NCR · 10%</div>
+      <div class="ribbon-seg" style="width:7%;background:var(--kar);">Bengaluru · 7%</div>
+      <div class="ribbon-seg" style="width:10%;background:var(--neutral);color:#5b5548;">Others · 10%</div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:var(--maha);"></span>Mumbai (Maharashtra)</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--tn);"></span>Chennai (Tamil Nadu)</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--up);"></span>Delhi-NCR (incl. UP)</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--kar);"></span>Bengaluru (Karnataka)</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--neutral);"></span>Hyderabad, Pune, Kolkata &amp; rest</div>
+    </div>
+    <div class="source-tag">SOURCE: CBRE, 2026. "Others" includes Hyderabad and Pune, both growing faster than their current share reflects.</div>
+  </div>
+</div>
+
+<div class="col">
+
+<section id="s1">
+  <div class="section-head"><span class="section-num">01</span><h2>Six states, three waves</h2></div>
+  <div class="section-kicker">How state policies differ</div>
+  <hr class="rule">
+  <p style="margin-top:22px;">India's data-centre capacity crossed roughly 1.7 gigawatts (GW) in 2025, on cumulative investment commitments of about $126 billion — a figure CBRE expects to cross $180 billion in 2026 alone. The trigger isn't data centres in the generic sense; it's the AI buildout specifically. Every state government has read the same signal: land the anchor hyperscaler campus first, and you capture a multi-decade annuity of investment, tax revenue and prestige. So states are bidding, with a broadly similar toolkit — land, power tariffs, stamp duty, capital subsidies. The outcomes, though, are not similar at all. The best explanation isn't subsidy size. It's which of three waves a state entered in.</p>
+
+  <div class="panel">
+    <div class="panel-title">Wave 1 → Wave 3</div>
+    <div class="panel-sub">When each state's data-centre policy went live</div>
+    <div class="timeline">
+      <div class="timeline-track"></div>
+      <div class="timeline-yr" style="left:2%;">2015</div>
+      <div class="timeline-yr" style="left:35%;">2021</div>
+      <div class="timeline-yr" style="left:52%;">2022</div>
+      <div class="timeline-yr" style="left:98%;">2026</div>
+
+      <div class="tl-marker" style="left:8%;background:var(--maha);"></div>
+      <div class="tl-label" style="left:8%;color:var(--maha);">Maharashtra<span>refreshed again 2023</span></div>
+
+      <div class="tl-marker" style="left:35%;background:var(--tn);"></div>
+      <div class="tl-label" style="left:35%;color:var(--tn);">TN · Telangana · UP<span>all launched 2021</span></div>
+
+      <div class="tl-marker" style="left:52%;background:var(--kar);"></div>
+      <div class="tl-label" style="left:52%;color:var(--kar);">Karnataka<span>2022</span></div>
+
+      <div class="tl-marker" style="left:96%;background:var(--guj);"></div>
+      <div class="tl-label" style="left:80%;color:var(--guj);">Gujarat<span>9 Jul 2026 — first-ever</span></div>
+    </div>
+    <div class="source-tag">SOURCE: Respective state IT/ITES and data-centre policy documents.</div>
+  </div>
+
+  <p><b>Wave 1 — the incumbent.</b> Maharashtra's IT/ITES policy dates to 1998, refreshed in 2015 and again in June 2023. Mumbai and Navi Mumbai host India's densest cluster of international submarine cable landing stations — the single most durable advantage a location can have, because it can't be subsidised into existence elsewhere overnight. The 2023 refresh added a 100% stamp duty exemption, a permanent electricity-duty exemption, and a five-year power-tariff subsidy outside the already-saturated Mumbai Metropolitan Region. None of that <i>created</i> Mumbai's lead. It protected one that already existed.</p>
+
+  <p><b>Wave 2 — the 2021–22 challengers.</b> Tamil Nadu, Telangana and Uttar Pradesh launched dedicated policies within a year of each other; Karnataka followed in 2022. Tamil Nadu leaned on Chennai's own cable-landing status and manufacturing base — L&amp;T alone signed an ₹18,600 crore deal with the state. Telangana took the most distinctive path of the three: rather than compete on generic land-and-power terms, it built incentives specifically around AI infrastructure — GPU density, liquid cooling, training clusters. Hyderabad's live capacity more than doubled from 61 MW (2022) to 151 MW (2025), with a 1.9 GW pipeline second only to Mumbai's; AWS alone holds 46% of that live capacity and has committed $7 billion over 14 years. Uttar Pradesh chose volume over sophistication, targeting Noida and the Yamuna Expressway corridor — its original 250 MW target has since scaled to eight parks and 900 MW. Karnataka is the odd one out: its policy deliberately steers incentives <i>outside</i> Bengaluru toward Mysuru and Mangaluru, a congestion-driven choice that is a real part of why Karnataka's footprint (96 MW, ~15% of national capacity in 2022) has lagged its reputation as India's software capital.</p>
+
+  <p><b>Wave 3 — the late, power-secure entrant.</b> Gujarat had no dedicated data-centre policy at all until 9 July 2026 — three weeks before this was written. Its pitch is structurally different: 69 GW of installed power capacity, 47 GW of it renewable, i.e. a genuine power <i>surplus</i> in a sector where every rival is fighting grid strain, paired with the Dholera semiconductor cluster and GIFT City's financial infrastructure. It targets ₹6 lakh crore in investment and 7.5–8 GW capacity, with investor interest already reported near double that.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>State</th><th>Policy vintage</th><th>Signature incentive</th><th>Current position</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="state-cell"><span class="dot" style="background:var(--maha);"></span>Maharashtra</td><td>1998 → refreshed 2015, 2023</td><td>Permanent electricity-duty exemption; ₹1/unit power subsidy (5 yrs); infrastructure status</td><td>~40–53% of national capacity; Mumbai anchors global cable landings</td></tr>
+        <tr><td class="state-cell"><span class="dot" style="background:var(--tn);"></span>Tamil Nadu</td><td>2021 (expires Mar-2026)</td><td>100% electricity-tax subsidy (5 yrs); district-tiered stamp duty relief</td><td>~23% national share; #2 hub; L&amp;T ₹18,600 cr deal</td></tr>
+        <tr><td class="state-cell"><span class="dot" style="background:var(--tel);"></span>Telangana</td><td>2021, AI-specific pivot 2023–25</td><td>Incentives tied to GPU / liquid-cooling / training infrastructure</td><td>1.9 GW pipeline (2nd to Mumbai); AWS, Microsoft, CtrlS, NTT anchors</td></tr>
+        <tr><td class="state-cell"><span class="dot" style="background:var(--up);"></span>Uttar Pradesh</td><td>2021, amended 2022</td><td>Capital/interest subsidy; state funds a second power grid</td><td>8 parks, 900 MW target, ~₹30,000 cr; NCR-adjacent</td></tr>
+        <tr><td class="state-cell"><span class="dot" style="background:var(--kar);"></span>Karnataka</td><td>2022–27</td><td>Incentives deliberately skewed outside Bengaluru</td><td>96 MW / ~15% share (2022); new 1,000 MW plan (2026) incl. Mysuru, Mangaluru</td></tr>
+        <tr><td class="state-cell"><span class="dot" style="background:var(--guj);"></span>Gujarat</td><td>2026–29 (launched Jul-2026)</td><td>Power surplus (69 GW, 47 GW renewable); desalination assistance</td><td>7.5–8 GW target; ₹6 lakh cr; Dholera / GIFT City anchors</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="section-head"><span class="section-num">02</span><h2>Growth, jobs and the inequality it's riding on</h2></div>
+  <div class="section-kicker">What the uneven race is doing to the economy</div>
+  <hr class="rule">
+  <p style="margin-top:22px;">The five states leading 2026 capital inflows by most industry forecasts — Telangana, Maharashtra, Andhra Pradesh, Tamil Nadu and Uttar Pradesh — already sit disproportionately among India's richer states. Maharashtra alone contributes roughly 13.5% of national GDP; the top five GSDP states together account for nearly half the economy.</p>
+
+  <div class="panel">
+    <div class="panel-title">Share of national GDP, FY2023-24</div>
+    <div class="panel-sub">Top-5 states by gross state domestic product</div>
+    <div class="bar-row"><div class="bar-label">Maharashtra</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--maha);"></div></div><div class="bar-val">13.46%</div></div>
+    <div class="bar-row"><div class="bar-label">Tamil Nadu</div><div class="bar-track"><div class="bar-fill" style="width:66%;background:var(--tn);"></div></div><div class="bar-val">8.93%</div></div>
+    <div class="bar-row"><div class="bar-label">Uttar Pradesh</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--up);"></div></div><div class="bar-val">8.77%</div></div>
+    <div class="bar-row"><div class="bar-label">Karnataka</div><div class="bar-track"><div class="bar-fill" style="width:63%;background:var(--kar);"></div></div><div class="bar-val">8.49%</div></div>
+    <div class="bar-row"><div class="bar-label">Gujarat</div><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--guj);"></div></div><div class="bar-val">8.05%</div></div>
+    <div class="source-tag">SOURCE: MoSPI / state finance data, compiled FY2023-24. Telangana is not in the official top-5 by this measure but ranks among the highest by per-capita income (below).</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Per-capita GSDP as % of national average</div>
+    <div class="panel-sub">Selected states, FY2023-24 — the spread this race is layering onto</div>
+    <div class="bar-row"><div class="bar-label">Goa</div><div class="bar-track"><div class="bar-fill" style="width:91%;background:var(--slate);"></div></div><div class="bar-val">291%</div></div>
+    <div class="bar-row"><div class="bar-label">Telangana</div><div class="bar-track"><div class="bar-fill" style="width:61%;background:var(--tel);"></div></div><div class="bar-val">194%</div></div>
+    <div class="bar-row"><div class="bar-label">Karnataka</div><div class="bar-track"><div class="bar-fill" style="width:57%;background:var(--kar);"></div></div><div class="bar-val">181%</div></div>
+    <div class="bar-row"><div class="bar-label">Jharkhand</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--slate);"></div></div><div class="bar-val">58%</div></div>
+    <div class="bar-row"><div class="bar-label">Uttar Pradesh</div><div class="bar-track"><div class="bar-fill" style="width:16%;background:var(--up);"></div></div><div class="bar-val">51%</div></div>
+    <div class="bar-row"><div class="bar-label">Bihar</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--slate);"></div></div><div class="bar-val">33%</div></div>
+    <div class="source-tag">SOURCE: NITI Aayog / MoSPI, FY2023-24, national average = 100%.</div>
+  </div>
+
+  <blockquote>High-income states, holding roughly a quarter of India's population, generate close to 44% of GDP. Low-income states, with more than a third of the population, produce under a fifth.
+  <cite>— Paraphrased from remarks by NITI Aayog Vice Chairman Suman Bery</cite></blockquote>
+
+  <p>Data centre investment isn't creating this divergence — but it's riding squarely on top of it, flowing to states that already had surplus power, cable connectivity or a deep talent base.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num">~100,000</div>
+      <div class="stat-label">data-centre-linked jobs projected nationally by 2030 (NLB Services) — against $126–180 billion in committed investment. Over $1M of capital per eventual job.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">₹1,467 cr</div>
+      <div class="stat-label">Karnataka's own estimate of its incentive-package cost against a 200 MW target — a rare instance of a state actually pricing its own exposure.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">The externality states aren't pricing in</div>
+    <div class="panel-sub">Projected national data-centre water consumption, billion litres/year</div>
+    <div class="bar-row"><div class="bar-label">2025</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--tn);"></div></div><div class="bar-val">150 bn L</div></div>
+    <div class="bar-row"><div class="bar-label">2030 (proj.)</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--rust);"></div></div><div class="bar-val">358 bn L</div></div>
+    <div class="source-tag">SOURCE: Industry estimates, cited in CEEW / Mongabay India reporting, 2026. Over half of India's data centres sit in already water-stressed regions (WRI India mapping); most state policies set no power- or water-efficiency floor, and data centres still fall outside a dedicated environmental-clearance category.</div>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="section-head"><span class="section-num">03</span><h2>Beyond the six: the coastal challengers</h2></div>
+  <div class="section-kicker">Why coastline alone doesn't decide this</div>
+  <hr class="rule">
+  <p style="margin-top:22px;">It's tempting to read the winners' map as a coastline map — Mumbai, Chennai, both port cities with subsea cable access. But India actually has cable-landing stations in five cities, not two: Mumbai, Chennai, Kochi, Tuticorin and Thiruvananthapuram. Kochi has had international cable access for years and still has no data-centre boom to show for it. Meanwhile Odisha, which has no landing station at all, out-moved several coastal rivals in 2026. Coastal access turns out to be necessary but nowhere near sufficient — power reliability, contiguous land and execution speed matter more than the coastline itself.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>State / hub</th><th>Coastal or connectivity asset</th><th>2026 status</th><th>Verdict</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="state-cell">West Bengal<br><span style="font-weight:400;color:var(--slate);font-size:12px;">Kolkata</span></td>
+          <td>No historic cable landing station (one now planned)</td>
+          <td>~1% of India's 2025 capacity additions despite a 2021 state policy; NTT's $2.5bn package (incl. a new landing station) and a fresh ₹5,000 cr 2026 budget push follow a change of state government</td>
+          <td>Late-starting; outcome now hinges on sustained investor confidence, not geography</td>
+        </tr>
+        <tr>
+          <td class="state-cell">Odisha<br><span style="font-weight:400;color:var(--slate);font-size:12px;">Bhubaneswar</span></td>
+          <td>No cable landing station</td>
+          <td>New Odisha State Data Policy 2026; &gt;₹15,000 cr committed within weeks (HCLTech's ₹14,257 cr AI data centre + Sovereign AI Park with Sarvam; Adani ₹800 cr)</td>
+          <td>Fastest-moving new entrant — proof execution can outrun endowment</td>
+        </tr>
+        <tr>
+          <td class="state-cell">Andhra Pradesh<br><span style="font-weight:400;color:var(--slate);font-size:12px;">Visakhapatnam</span></td>
+          <td>Vizag emerging as a new landing hub (Meta's dual-coast cable, alongside Mumbai)</td>
+          <td>Google's $15bn AI data-centre hub — the single largest confirmed hyperscale deal in India</td>
+          <td>Out-competing its own bifurcation-sibling, Telangana, on headline scale</td>
+        </tr>
+        <tr>
+          <td class="state-cell">Kerala<br><span style="font-weight:400;color:var(--slate);font-size:12px;">Kochi</span></td>
+          <td>Existing cable landing station (SMW3, SAFE) for years</td>
+          <td>No dedicated, aggressive data-centre push to match the infrastructure already in place</td>
+          <td>The clearest evidence that cable access alone isn't the deciding factor</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="section-head"><span class="section-num">04</span><h2>How other federations handle this</h2></div>
+  <div class="section-kicker">Optional: international comparison</div>
+  <hr class="rule">
+  <p style="margin-top:22px;">The United States runs the same decentralised model India does — and is roughly a decade further along the same curve, which makes it a preview more than a comparison. Virginia's sales-tax exemption alone cost the state about $1.6 billion in fiscal 2025, sixteen times its original projection. The backlash has arrived fast: over 300 data-centre bills were filed across 30-plus state legislatures within six weeks in early 2026, several proposing outright moratoriums. Tellingly, one industry survey found only about 3% of operators rank tax incentives as the single most important site factor — power, land and latency dominate the real decision.</p>
+
+  <p>China runs the opposite model: centrally coordinated allocation. Its 2021 "East Data, West Computing" plan directs data-centre construction toward resource-rich but lagging inland provinces rather than letting demand concentrate purely on the wealthy coast. But recent assessments are sobering — several designated western hubs sit adjacent to large cities rather than truly remote, and firms remain reluctant to shift latency-sensitive AI workloads inland. Coordination has redirected some of the map; it hasn't overridden the underlying gravity toward existing demand centres.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Mechanism</th><th>What it shows India</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="state-cell">United States</td><td>Decentralised state-vs-state bidding, ~30+ states</td><td>India's states are roughly where the US was a decade ago — before the fiscal bill came due</td></tr>
+        <tr><td class="state-cell">China</td><td>Top-down "East Data, West Computing" allocation</td><td>Central coordination helps, but doesn't override market gravity on its own</td></tr>
+        <tr><td class="state-cell">India (unused)</td><td>TRAI's 2022 proposal: a national Data Centre Readiness Index + ≥75% centre co-funding of incentives for low-footprint states</td><td>Already designed, never operationalised — the most concrete lever available</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="section-head"><span class="section-num">05</span><h2>Fix the distribution, not the race</h2></div>
+  <div class="section-kicker">My view</div>
+  <hr class="rule">
+  <p style="margin-top:22px;">My view is that the competition is good for India in aggregate and bad for India in distribution — and the fix is to change what states compete <i>on</i>, not to end the competition. A single national policy, absent competitive pressure, would very likely have moved slower: Telangana's AI-specific tilt, Karnataka's anti-congestion tilt and Gujarat's power-surplus tilt are useful policy variation, not wasteful duplication. But left alone, the dynamic rewards states for what they already had, returns thin jobs for the capital and tax revenue foregone, and lets states externalise water and grid costs onto the same citizens the investment was meant to benefit.</p>
+
+  <div class="rec">
+    <div class="rec-num">1</div>
+    <div><h4>Switch on the mechanism India already built</h4><p>Operationalise TRAI's 2022 proposal — a functioning Readiness Index paired with genuine central co-financing — so Uttar Pradesh, Odisha or Rajasthan compete on a national subsidy pool rather than each state independently escalating its own package.</p></div>
+  </div>
+  <div class="rec">
+    <div class="rec-num">2</div>
+    <div><h4>Make efficiency standards a condition, not an add-on</h4><p>Every policy renewal from here should require minimum power- and water-usage thresholds and bring data centres into environmental clearance — before India reaches Ireland's position, where data centres draw over a fifth of national electricity and new construction is under moratorium until 2028.</p></div>
+  </div>
+  <div class="rec">
+    <div class="rec-num">3</div>
+    <div><h4>Redirect the incentive rupee toward the real bottleneck</h4><p>Shift a slice of incentive spend away from land and capital subsidies — which investors themselves rank as secondary — toward a skilling-linkage fund, co-financed with the operators who benefit from the tax concessions.</p></div>
+  </div>
+
+  <p>None of this requires slowing the race down. It requires India to stop repeating, in slow motion, mistakes the United States is already living through in real time — and to actually use the coordination tool it designed for itself in 2022.</p>
+</section>
+
+</div>
+
+<footer>
+  <div class="col">
+    <h5>Sources &amp; notes</h5>
+    <p>Compiled from CBRE, Knight Frank, JLL/Arizton, NLB Services, CEEW, WRI India, Mongabay India, NITI Aayog statements, TRAI (2022), state data-centre policy documents, and contemporaneous reporting (Business Standard, Dailypioneer, DCD, Communications Today) through July 2026. Where sources gave differing point estimates for the same metric, the more conservative figure or a stated range is used rather than false precision.</p>
+  </div>
+</footer>
+
+</body>
+</html>
